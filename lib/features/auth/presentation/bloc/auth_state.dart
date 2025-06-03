@@ -15,7 +15,10 @@ class AuthSuccess extends AuthState {
   final String token;
   final String message;
 
-  const AuthSuccess({required this.token, required this.message});
+  const AuthSuccess({
+    required this.token,
+    required this.message,
+  });
 
   @override
   List<Object?> get props => [token, message];
