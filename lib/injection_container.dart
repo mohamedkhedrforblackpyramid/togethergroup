@@ -14,8 +14,7 @@ import 'features/news/presentation/bloc/news_bloc.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  // Features - News
-  // Bloc
+
   sl.registerFactory(
     () => NewsBloc(
       getTopHeadlines: sl(),
@@ -23,11 +22,9 @@ Future<void> init() async {
     ),
   );
 
-  // Use cases
   sl.registerLazySingleton(() => GetTopHeadlines(sl()));
   sl.registerLazySingleton(() => SearchArticles(sl()));
 
-  // Repository
   sl.registerLazySingleton<NewsRepository>(
     () => NewsRepositoryImpl(
       remoteDataSource: sl(),
@@ -35,15 +32,12 @@ Future<void> init() async {
     ),
   );
 
-  // Data sources
   sl.registerLazySingleton<NewsRemoteDataSource>(
     () => NewsRemoteDataSourceImpl(client: sl()),
   );
 
-  // Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
-  // External
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => http.Client());
